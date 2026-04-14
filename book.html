@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Your Cultural Trip</title>
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+<div>
+  <!-- Topbar -->
+  <nav class="topbar">
+    <div class="logo-def">🌐 Cultural Explorer</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="book.html" class="book-now-btn">Book</a></li>
+    </ul>
+  </nav>
+</div>
+  <header class="hero">
+    <section class="section booking">
+      <h2>📅 Book Your Cultural Trip</h2>
+      <form id="booking-form" class="booking-form">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <select id="destination" required>
+          <option value="">Select Destination</option>
+          <option>Algiers, Algeria</option>
+          <option>Marrakech, Morocco</option>
+          <option>Tunis, Tunisia</option>
+        </select>
+        <input type="number" id="people" placeholder="Number of Travelers" required min="1">
+        <input type="date" id="date" required>
+        <button type="submit" class="btn">Book Now</button>
+      </form>
+  
+      <div id="confirmation" class="hidden">
+        <h3 style="color: green;">✅ Trip Booked Successfully!</h3>
+        <p>We’ll contact you soon with details at your email.</p>
+      </div>
+    </section>
+  </header>
+
+  <script>
+    document.getElementById('booking-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const destination = document.getElementById('destination').value;
+      const people = document.getElementById('people').value;
+      const date = document.getElementById('date').value;
+
+      const trip = { name, email, destination, people, date };
+
+      // حفظ في LocalStorage
+      const trips = JSON.parse(localStorage.getItem('cultural_trips')) || [];
+      trips.push(trip);
+      localStorage.setItem('cultural_trips', JSON.stringify(trips));
+
+      // إخفاء النموذج، وإظهار تأكيد
+      this.style.display = 'none';
+      document.getElementById('confirmation').classList.remove('hidden');
+    });
+  </script>
+
+</body>
+</html>
